@@ -95,6 +95,9 @@ window.onload=function(){
     var defeats=0;
     var catNumber=0;
     var gameOver=false;
+    var usedLetters=[];
+    var wrongLetters=[];
+    var opportunities=0;
 
     document.onkeyup=function(event){
 
@@ -110,6 +113,8 @@ window.onload=function(){
             currentCat=[];
             displayedCat="";
             wordDisplay=[];
+            usedLetters=[];
+            opportunities=7;
 
             $("#startOrGuess").html("Guess that cat species now!");
             $("#guessOrType").html("Type the letters you guess, but be careful... too many mistakes will lead to your doom!!!");
@@ -128,6 +133,8 @@ window.onload=function(){
             $("#guessedWord").html(displayedCat);
             $("#used").html("");
 
+            $("#catImage").attr("src",felines[catNumber].pic);
+
      
         keepPlaying();
 
@@ -136,10 +143,8 @@ window.onload=function(){
 
     function keepPlaying(){
 
-        var opportunities=7;
+        opportunities=7;
         $("#oppsLeft").html(opportunities);
-
-        var usedLetters=[];
 
         var wordDisplay=[];
         for(var i=0;i<currentCat.length;i++){
@@ -153,43 +158,54 @@ window.onload=function(){
         $("#guessedWord").html(displayedCat+" ");
        
         var lettersLeft=currentCat.length;
+        var addLetter=true;
 
         document.onkeyup=function(event){
      
-            var mistake=true;
+            var correct=false;
             var currentCat=[];
             var displayedCat=[];
             var guess=event.key.toLowerCase();  
-           
+            var wrongLetter=true;
+            addLetter=true;
 
             currentCat=felines[catNumber].species;
+         
 
+            var arrayIndex=usedLetters.indexOf(guess);
+            
 
-            for(var i=0;i<wordDisplay.length;i++){
+            for(var i=0;i<currentCat.length;i++){
+                console.log("contador for principal: "+i);
+                arrayIndex=usedLetters.indexOf(guess);
+                console.log("Index before ifs: "+arrayIndex);
 
-                var arrayIndex=usedLetters.indexOf(guess);
-                
-                if(arrayIndex===-1){
+                    if(currentCat[i]===guess&&arrayIndex===-1){
 
-                    if(currentCat[i]===guess){
+                        usedLetters.push(guess);
+                        $("#used").html(usedLetters);
+                        console.log(usedLetters);
                         
-                        for(var i=0;i<currentCat.length;i++){
+                        for(var j=0;j<currentCat.length;j++){
+
+                            console.log("contador de impresion: "+j);
                         
-                            if(currentCat[i]===guess){
-                                wordDisplay[i]=guess;
+                            if(currentCat[j]===guess){
+                               
+                                wordDisplay[j]=guess;
                                 displayedCat=wordDisplay.join(" ");
                                 $("#guessedWord").html(displayedCat+" ");
                                 lettersLeft--;
-                            }}
+                            }
 
-                        console.log("letters left: "+lettersLeft);
+                        }
 
                         if(lettersLeft===0){
 
                             wins++;
                             $("#victs").html(wins);
                             catNumber++;
-                            $("#startOrGuess").html("Well done!");
+                            $("#startOrGuess").html("You win! Well done, you are saved from my vicious claws!");
                             $("#guessOrType").html("Press F to guess another species!");
 
                             document.onkeyup=function(event){
@@ -198,41 +214,56 @@ window.onload=function(){
                                 if(another==='f'){
 
                                     writeBlanks();
+                                                 }
+                                                            }
+                                            }
+
+
+                                                            }
+    
                                 }
-                            }
+                    
+            for(var i=0;i<currentCat.length;i++){
 
-                        }
-                        
-                        arrayIndex=usedLetters.indexOf(guess);
-                        console.log(usedLetters);
-                        console.log("index after adding:"+arrayIndex);
+                console.log("contador for principal de errores: "+i);
+                arrayIndex=usedLetters.indexOf(guess);
+                console.log("Index before ifs wrong: "+arrayIndex);
 
-                        if(arrayIndex===-1){
-                        usedLetters.push(guess);
-                        console.log("used letters: "+usedLetters);
-                        $("#used").html(usedLetters);}
+                if(currentCat[i]!==guess&&arrayIndex===-1){
+
+                    usedLetters.push(guess);
+                    $("#used").html(usedLetters);
+                    opportunities--;
+                    $("#oppsLeft").html(opportunities);
+
+                    if(opportunities===0){
+                        defeats++;
+                        $("#losses").html(defeats);
+                        catNumber++;
+                        $("#startOrGuess").html("You lose! Be devoured by the Roman lions!");
+                        $("#guessOrType").html("Press F to guess another species!");
+                        $("#guessedWord").html(currentCat);
+                        document.onkeyup=function(event){
+
+                            var another=event.key.toLowerCase();
+                            if(another==='f'){
+
+                                writeBlanks();
+                                             }
+                                                        }
 
                     }
 
-                    
-                    else if(arrayIndex===-1){
+                }
 
-                        usedLetters.push(guess);
-                        opportunities--;
-                        $("#oppsLeft").html(opportunities);
-                        console.log("Opportunities:"+opportunities);
+
+            }     
+
                     }
 
-                    
-            }
-                
-            }
-
-        }
 
 
-
-    }
+                                            }
 
 
 
