@@ -50,7 +50,7 @@ window.onload=function(){
 
         {
             'species': 'ocelot',
-            'pic': "assets/images/margay.jpg"
+            'pic': "assets/images/ocelot.jpg"
 
         },
 
