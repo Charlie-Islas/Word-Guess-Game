@@ -30,6 +30,7 @@ window.onload=function(){
 
         },
 
+     
         {
             'species': 'lion',
             'pic': "assets/images/lion.jpg"
@@ -107,6 +108,8 @@ window.onload=function(){
     
     function writeBlanks(){
 
+        if(catNumber<13){
+
         var displayArray=[];
 
 
@@ -135,8 +138,17 @@ window.onload=function(){
 
             $("#catImage").attr("src",felines[catNumber].pic);
 
-     
         keepPlaying();
+    
+        }
+
+        else{
+
+            $("#startOrGuess").html("Congratulations! You've reached the end of the game...");
+            $("#guessOrType").html("Come back to the Serengeti any time!");
+
+
+        }
 
 
     }
@@ -159,6 +171,7 @@ window.onload=function(){
        
         var lettersLeft=currentCat.length;
         var addLetter=true;
+        var usedLettersStr="";
 
         document.onkeyup=function(event){
      
@@ -170,26 +183,23 @@ window.onload=function(){
             addLetter=true;
 
             currentCat=felines[catNumber].species;
-         
+            
 
             var arrayIndex=usedLetters.indexOf(guess);
             
 
             for(var i=0;i<currentCat.length;i++){
-                console.log("contador for principal: "+i);
+                
                 arrayIndex=usedLetters.indexOf(guess);
-                console.log("Index before ifs: "+arrayIndex);
 
                     if(currentCat[i]===guess&&arrayIndex===-1){
 
                         usedLetters.push(guess);
-                        $("#used").html(usedLetters);
-                        console.log(usedLetters);
+                        usedLettersStr=usedLettersStr+guess+", ";
+                        $("#used").html(usedLettersStr);
                         
                         for(var j=0;j<currentCat.length;j++){
 
-                            console.log("contador de impresion: "+j);
-                        
                             if(currentCat[j]===guess){
                                
                                 wordDisplay[j]=guess;
@@ -225,14 +235,13 @@ window.onload=function(){
                     
             for(var i=0;i<currentCat.length;i++){
 
-                console.log("contador for principal de errores: "+i);
                 arrayIndex=usedLetters.indexOf(guess);
-                console.log("Index before ifs wrong: "+arrayIndex);
 
                 if(currentCat[i]!==guess&&arrayIndex===-1){
 
                     usedLetters.push(guess);
-                    $("#used").html(usedLetters);
+                    usedLettersStr=usedLettersStr+guess+", ";
+                    $("#used").html(usedLettersStr);
                     opportunities--;
                     $("#oppsLeft").html(opportunities);
 
