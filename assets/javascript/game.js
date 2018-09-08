@@ -30,12 +30,6 @@ window.onload=function(){
 
         },
 
-     
-        {
-            'species': 'lion',
-            'pic': "assets/images/lion.jpg"
-
-        },
 
         {
             'species': 'lynx',
@@ -58,6 +52,12 @@ window.onload=function(){
         {
             'species': 'leopard',
             'pic': "assets/images/leopard.jpg"
+
+        },
+
+        {
+            'species': 'lion',
+            'pic': "assets/images/lion.jpg"
 
         },
 
