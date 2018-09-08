@@ -57,7 +57,7 @@ window.onload=function(){
 
         {
             'species': 'lion',
-            'pic': "assets/images/lion.jpg"
+            'pic': "assets/images/lion.JPG"
 
         },
 
