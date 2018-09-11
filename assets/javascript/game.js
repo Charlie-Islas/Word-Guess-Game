@@ -1,5 +1,3 @@
-//https://github.com/clsavino/PokemonHangmanGame/blob/master/assets/javascript/game.js link to the Pokemon example game
-
 window.onload = function () {
 
     //making my feline list and declaring its properties, including species names and pictures
