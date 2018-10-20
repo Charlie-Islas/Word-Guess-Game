@@ -1,4 +1,7 @@
+
 Welcome to the Feline Hangman Game!
+
+Visit the deployed page at: https://charlie-islas.github.io/Word-Guess-Game/
 
 Get yourself ready to guess feline species or perish under the big cats' claws!
 
